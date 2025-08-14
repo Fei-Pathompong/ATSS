@@ -6,7 +6,6 @@ from tkinter import filedialog, messagebox, ttk
 
 import pandas as pd
 
-# Dynamically add the project's 'src' directory to the system path.
 src_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if src_path not in sys.path:
     sys.path.insert(0, src_path)
@@ -14,7 +13,6 @@ if src_path not in sys.path:
 from libs.scheduler import create_advanced_schedule
 
 
-# --- NEW: Enhanced TextRedirector for colored logging ---
 class TextRedirector(object):
     def __init__(self, widget, tags):
         """
@@ -29,7 +27,6 @@ class TextRedirector(object):
         """
         self.widget.configure(state='normal')
         
-        # Check for keywords and apply the appropriate tag
         if "WARNING:" in text_string:
             self.widget.insert('end', text_string, self.tags['warning'])
         elif "ERROR:" in text_string or "AN ERROR OCCURRED:" in text_string:
@@ -93,7 +90,6 @@ def start_gui(project_root):
     log_text = tk.Text(log_frame, height=15, state='disabled', bg="#f0f0f0", font=("Consolas", 9))
     log_text.pack(fill="both", expand=True)
 
-    # --- NEW: Define color tags for the log text widget ---
     log_tags = {
         'info': 'info',
         'warning': 'warning',
@@ -105,7 +101,6 @@ def start_gui(project_root):
     log_text.tag_configure(log_tags['error'], foreground='red', font=("Consolas", 9, "bold"))
     log_text.tag_configure(log_tags['success'], foreground='green', font=("Consolas", 9, "bold"))
 
-    # Redirect stdout to our new, enhanced TextRedirector
     sys.stdout = TextRedirector(log_text, log_tags)
 
     def run_scheduler_thread():
@@ -142,7 +137,6 @@ def start_gui(project_root):
                 
                 invalid_tasks = tasks_df[tasks_df['Date'].isna()]
                 if not invalid_tasks.empty:
-                    # Note the "WARNING:" keyword which our logger will detect
                     print("WARNING: The following tasks have invalid or missing dates and will be skipped:")
                     print(invalid_tasks.to_string())
                     print("-" * 30)
@@ -164,7 +158,6 @@ def start_gui(project_root):
             messagebox.showinfo("Success", f'Schedule generation complete!\n\nFiles saved in:\n{output_dir}')
 
         except Exception as e:
-            # Note the "AN ERROR OCCURRED:" keyword
             print(f"\nAN ERROR OCCURRED:\n{e}")
             messagebox.showerror("Error", f'An unexpected error occurred. Please check the status log for details.\n\nError: {e}')
         finally:
