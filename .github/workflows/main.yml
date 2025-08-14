@@ -56,6 +56,6 @@ jobs:
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: release.zip
+          files: ./**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
