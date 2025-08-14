@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-executable
-          path: dist/
+          path: release.zip
 
   create-release:
     needs: build-exe
@@ -56,6 +56,6 @@ jobs:
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: "*.exe"
+          files: release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
