@@ -56,9 +56,18 @@ jobs:
       - name: Verify downloaded artifact
         run: ls -R
 
+      - name: Test token with GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PAT }}
+        run: |
+          echo "Attempting to view repository..."
+          gh repo view ${{ github.repository }}
+          echo "Attempting to list releases..."
+          gh release list --limit 1
+
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
         with:
-          files: ./**/*.zip
+          files: release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
