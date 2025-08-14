@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - 'v*'
-  
   workflow_dispatch:
 
 permissions:
@@ -13,7 +12,6 @@ permissions:
 jobs:
   build-exe:
     runs-on: windows-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -46,24 +44,14 @@ jobs:
   create-release:
     needs: build-exe
     runs-on: ubuntu-latest
-
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: windows-executable
-      
-      - name: Verify downloaded artifact
-        run: ls -R
-
-      - name: Test token with GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_PAT }}
-        run: |
-          echo "Attempting to view repository..."
-          gh repo view ${{ github.repository }}
-          echo "Attempting to list releases..."
-          gh release list --limit 1
 
       - name: Create Release and Upload Asset
         uses: softprops/action-gh-release@v2
