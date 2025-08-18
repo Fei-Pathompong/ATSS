@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=['.', os.path.abspath('src')],
     binaries=[],
-    datas=[],
+    datas=[('input_examples', 'input_examples')],
     hiddenimports=[
         'pandas._libs.tslibs.base',
         'babel.numbers',
@@ -43,5 +43,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='main',
+    name='Automatic Technician Scheduler',
 )
