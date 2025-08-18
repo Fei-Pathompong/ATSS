@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=['.', os.path.abspath('src')],
     binaries=[],
-    datas=[('input_examples', 'input_examples')],
+    datas=[],
     hiddenimports=[
         'pandas._libs.tslibs.base',
         'babel.numbers',
