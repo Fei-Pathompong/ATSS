@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-executable
-          path: "ATSS-${{ github.ref_name }}.zip
+          path: release.zip
 
   create-release:
     needs: build-exe
