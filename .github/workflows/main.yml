@@ -29,7 +29,7 @@ jobs:
       
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller build.spec
+          pyinstaller main.spec
 
       - name: Copy example files into build folder
         run: |
